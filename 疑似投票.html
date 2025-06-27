@@ -1,0 +1,153 @@
+\<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>AI候補者の選挙公約 投票ページ</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #aee6f9 0%, #ffffff 20%, #ffffff 80%, #aee6f9 100%);
+      font-family: 'Arial', sans-serif;
+      color: #2c3e50;
+    }
+
+    .container {
+      background-color: white;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      min-height: 100vh;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 40px;
+    }
+
+    .policy {
+      background: #ffffff;
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      max-width: 600px;
+    }
+
+    .policy h2 {
+      margin-top: 0;
+      color: #34495e;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+    }
+
+    #thankYouMessage {
+      display: none;
+      margin-top: 60px;
+      text-align: center;
+    }
+
+    #thankYouMessage h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    #thankYouMessage p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    #sdImage {
+      margin-top: 30px;
+      max-width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>AI候補者たちの選挙公約に1票を！</h1>
+
+    <div id="policyContainer">読み込み中...</div>
+
+    <div id="thankYouMessage">
+      <h2>ご投票ありがとうございました</h2>
+      <p>公約を見て考えることが重要です。<br>あなたの1票が未来をつくります。</p>
+      <img id="sdImage" src="vote.png" alt="投票を呼びかけるSDキャラ">
+    </div>
+  </div>
+
+  <script>
+    const candidateNames = [
+      "みらい太郎", "テクノ春子", "ソラ野あおい", "くらし守之介", "ナゴミ優",
+      "データ佐助", "えがお花子", "リンク健", "メグミ未来", "ホープ星也",
+      "コード一馬", "ハート山咲", "スマイル真琴", "トキ未来子", "ジオ田三郎",
+      "サポート明日香", "ミライ咲夜", "セーフ高橋", "ピース白石", "ライフ秋人"
+    ];
+
+    const policies = [
+      { title: "未来の学校革命", text: "すべての学校でAIリテラシー教育を義務化します。" },
+      { title: "プログラミング第一世代", text: "子どものプログラミング授業を小学校1年生から導入。" },
+      { title: "ゆとりある月曜日", text: "月曜日の午前中は全国的にリモートワークを推奨。" },
+      { title: "AI高齢者支援網", text: "高齢者の生活を支援するAI相談員を地域に配置。" },
+      { title: "待ち時間ゼロ行政", text: "行政手続きを完全にデジタル化し、役所の待ち時間ゼロへ。" },
+      { title: "混雑レス通勤プロジェクト", text: "公共交通にAI混雑予測を導入し通勤ストレスを削減。" },
+      { title: "高校まで学費無償化", text: "教育費の無償化を高校卒業まで全国展開。" },
+      { title: "スマート農業補助金", text: "農業支援AIドローン導入の補助金を拡充。" },
+      { title: "災害AI誘導作戦", text: "災害時の避難誘導をAIとドローンで迅速化。" },
+      { title: "AIドクター導入", text: "医療診断AIの導入で病院の待ち時間を半分に。" },
+      { title: "若者オンライン投票", text: "若者の政治参加促進のためオンライン投票制度を導入。" },
+      { title: "AI図書館司書", text: "公共図書館にAI司書を設置し24時間対応。" },
+      { title: "育児相談AIチャット", text: "育児相談AIチャットを全市町村に配備。" },
+      { title: "地方リモート移住計画", text: "地方移住支援AIポータルの全国展開。" },
+      { title: "地域交通の自動運転化", text: "過疎地域に自動運転バスを導入。" },
+      { title: "AIで中小企業支援", text: "中小企業向けに業務自動化AIツールを無償提供。" },
+      { title: "オンライン不登校支援", text: "不登校児童にオンライン出席制度を整備。" },
+      { title: "議会の見える化", text: "議会での発言を自動文字起こし・公開。" },
+      { title: "全国どこでもWi-Fiと充電", text: "公園に充電ステーションとWi-Fiを全国整備。" },
+      { title: "AI民意フィードバック", text: "政策決定に市民の声を反映するAIアンケート制度を構築。" }
+    ];
+
+    function shuffle(array) {
+      return array.sort(() => Math.random() - 0.5);
+    }
+
+    function displayPolicies() {
+      const selectedPolicies = shuffle([...policies]).slice(0, 5);
+      const selectedCandidates = shuffle([...candidateNames]).slice(0, 5);
+      const container = document.getElementById("policyContainer");
+      container.innerHTML = "";
+
+      selectedPolicies.forEach((policy, i) => {
+        const name = selectedCandidates[i];
+        const div = document.createElement("div");
+        div.className = "policy";
+        div.innerHTML = `
+          <h2>${name} の公約：${policy.title}</h2>
+          <p>${policy.text}</p>
+          <button onclick="vote(this)">この公約に投票する</button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function vote(button) {
+      const buttons = document.querySelectorAll("button");
+      buttons.forEach(b => b.disabled = true);
+      document.getElementById("policyContainer").style.display = "none";
+      document.getElementById("thankYouMessage").style.display = "block";
+    }
+
+    displayPolicies();
+  </script>
+</body>
+</html>
