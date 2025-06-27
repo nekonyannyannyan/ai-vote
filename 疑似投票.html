@@ -1,7 +1,8 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI候補者の選挙公約 投票ページ</title>
   <style>
     body {
@@ -18,11 +19,12 @@
       max-width: 800px;
       margin: 0 auto;
       min-height: 100vh;
+      box-sizing: border-box;
     }
 
     h1 {
       text-align: center;
-      font-size: 28px;
+      font-size: 6vw;
       margin-bottom: 40px;
     }
 
@@ -33,22 +35,29 @@
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       max-width: 600px;
+      box-sizing: border-box;
     }
 
     .policy h2 {
       margin-top: 0;
       color: #34495e;
+      font-size: 5vw;
+    }
+
+    .policy p {
+      font-size: 4.5vw;
     }
 
     button {
       margin-top: 15px;
       padding: 10px 20px;
-      font-size: 16px;
+      font-size: 4.5vw;
       border: none;
       border-radius: 5px;
       background-color: #3498db;
       color: white;
       cursor: pointer;
+      touch-action: manipulation;
     }
 
     #thankYouMessage {
@@ -58,18 +67,34 @@
     }
 
     #thankYouMessage h2 {
-      font-size: 24px;
+      font-size: 5vw;
       margin-bottom: 15px;
     }
 
     #thankYouMessage p {
-      font-size: 18px;
+      font-size: 4vw;
       line-height: 1.6;
     }
 
     #sdImage {
       margin-top: 30px;
-      max-width: 200px;
+      max-width: 60%;
+      height: auto;
+    }
+
+    @media (min-width: 768px) {
+      h1 {
+        font-size: 28px;
+      }
+      .policy h2 {
+        font-size: 22px;
+      }
+      .policy p,
+      button,
+      #thankYouMessage h2,
+      #thankYouMessage p {
+        font-size: 18px;
+      }
     }
   </style>
 </head>
